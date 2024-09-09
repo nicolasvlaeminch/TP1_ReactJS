@@ -17,3 +17,37 @@ button {
 p {
     font-size: 18px;
 }
+
+.corner-image {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 300px;
+    width: auto;
+    z-index: -1;
+}
+
+
+@media (max-width: 1280px) {
+    .corner-image {
+        font-size: 30px;
+        height: auto;
+        width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .corner-image {
+        font-size: 30px;
+        height: auto;
+        width: 200px;
+    }
+}
+
+@media (max-width: 375px) {
+    .corner-image {
+        font-size: 30px;
+        height: auto;
+        width: 120px;
+    }
+}

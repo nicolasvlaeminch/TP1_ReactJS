@@ -4,68 +4,61 @@ import { generateRandomNumber } from '../helpers/numberHelpers';
 
 const useGame = () => {
     const navigate = useNavigate();
-    const [targetNumber, setTargetNumber] = useState(generateRandomNumber(1, 20));
-    const [score, setScore] = useState(100);
-    const [message, setMessage] = useState('');
-    const [isGameOver, setIsGameOver] = useState(false);
-    const [highScore, setHighScore] = useState(0); // Highest score during the round
-    const [hasNewHighScore, setHasNewHighScore] = useState(false); // Flag to check new high score
+    const [targetNumber, setTargetNumber] = useState(generateRandomNumber(1, 20)); // Inicializa el número objetivo
+    const [score, setScore] = useState(100); // Inicializa la puntuación
+    const [message, setMessage] = useState('Introduzca un número entre 1 y 20.'); // Mensaje inicial
+    const [isGameOver, setIsGameOver] = useState(false); // Controla si el juego ha terminado
+    const [currentHighScore, setCurrentHighScore] = useState(0); // Guarda la puntuación más alta actual
 
     const handleGuess = (guess) => {
         if (isGameOver) return;
 
-        const numberGuess = parseInt(guess, 10);
+        const numberGuess = parseInt(guess, 10); // Convierte la suposición a un número entero
 
         if (isNaN(numberGuess) || numberGuess < 1 || numberGuess > 20) {
-            setMessage('Por favor introduzca un número entre 1 y 20.');
-            return;
+            setMessage('Introduzca un número entre 1 y 20.');
+            return 'invalid';
         }
 
         if (numberGuess === targetNumber) {
-            const finalScore = score + 100; // Add 100 points to the score
-            setScore(finalScore);
+            const newScore = score + 100;
+            setScore(newScore);
 
-            // Check if the new score is higher than the current high score
-            if (finalScore > highScore) {
-                setHighScore(finalScore);
-                setHasNewHighScore(true);
+            if (newScore > currentHighScore) { // Actualiza la puntuación más alta si es necesario
+                setCurrentHighScore(newScore);
             }
-            
-            setMessage('¡Adivinaste el número!');
-            
-            // Generate a new target number
-            setTargetNumber(generateRandomNumber(1, 20));
+
+            setMessage('¡Encontraste al impostor!');
+            setTargetNumber(generateRandomNumber(1, 20)); // Genera un nuevo número objetivo
+            return 'correct';
         } else {
             const newScore = score - 10;
-            if (newScore <= 0) {
+            if (newScore <= 0) { // Si la puntuación llega a 0 o menos, el juego termina
                 setIsGameOver(true);
-                
-                // Save high score to localStorage if a new high score was set
-                if (hasNewHighScore) {
+
+                if (currentHighScore > 0) { // Guarda la puntuación más alta en el almacenamiento local
                     const savedScores = JSON.parse(localStorage.getItem('highScores')) || [];
-                    savedScores.push(highScore);
-                    savedScores.sort((a, b) => b - a).slice(0, 10); // Keep top 10 scores
+                    savedScores.push(currentHighScore);
+                    savedScores.sort((a, b) => b - a).slice(0, 10); // Ordena y mantiene las 10 mejores puntuaciones
                     localStorage.setItem('highScores', JSON.stringify(savedScores));
-                    
-                    // Reset the flag
-                    setHasNewHighScore(false);
                 }
-                
-                navigate('/result', { state: { result: 'lose', score: highScore } }); // Pass highScore
+
+                navigate('/result', { state: { result: 'lose', score: currentHighScore } }); // Navega a la página de resultados con el estado de pérdida
+                return 'incorrect';
             } else {
-                setScore(newScore);
-                setMessage(numberGuess > targetNumber ? '¡Demasiado alto!' : '¡Demasiado bajo!');
+                setScore(newScore); // Actualiza la puntuación
+                setMessage(numberGuess > targetNumber ? '¡El impostor está más abajo!' : '¡El impostor está más arriba!'); // Mensaje de pista
+                return 'incorrect';
             }
         }
     };
 
     const resetGame = () => {
-        setTargetNumber(generateRandomNumber(1, 20));
-        setScore(100);
-        setHighScore(0); // Reset high score
-        setIsGameOver(false);
-        setMessage('');
-        setHasNewHighScore(false); // Reset the flag
+        setTargetNumber(generateRandomNumber(1, 20)); // Reinicia el número objetivo
+        setScore(100); // Reinicia la puntuación
+        setCurrentHighScore(0); // Reinicia la puntuación más alta
+        setIsGameOver(false); // Reinicia el estado del juego
+        setMessage(''); // Limpia el mensaje
     };
 
     return {

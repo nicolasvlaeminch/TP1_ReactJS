@@ -1,0 +1,60 @@
+.among-us-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.among-us-player {
+    width: 90px;
+    height: 150px;
+    background-image: url('../assets/among-us/among-us.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 
+    -1px -1px 0 black,  
+    1px -1px 0 black,
+    -1px  1px 0 black,
+    1px  1px 0 black;
+    transition: transform 0.3s ease;
+}
+
+.dead {
+    background-image: url('../assets/among-us/dead.png');
+}
+
+.winner {
+    background-image: url('../assets/among-us/win.png');
+}
+
+@media (max-width: 1280px) {
+    .among-us-player {
+        width: 75px;
+        height: 120px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .among-us-player {
+        width: 50px;
+        height: 80px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 375px) {
+    h1 {
+        font-size: 36px;
+    }
+}

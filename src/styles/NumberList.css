@@ -1,0 +1,22 @@
+.number-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+}
+
+.number-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    border: 1px solid #000;
+    cursor: pointer;
+    user-select: none;
+}
+
+.number-item.checked {
+    text-decoration: line-through;
+    color: red;
+}
