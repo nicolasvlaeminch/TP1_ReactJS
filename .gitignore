@@ -1,0 +1,39 @@
+# Dependencias de npm
+/node_modules
+
+# Archivos de construcción y producción
+/build
+
+# Archivos temporales
+.DS_Store
+*.log
+
+# Archivos de configuración del entorno
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Archivos de sistema de macOS
+.vscode/
+.idea/
+
+# Directorios específicos de OS
+.DS_Store
+Thumbs.db
+
+# Configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos de log
+*.log
+
+# Directorios de pruebas
+/coverage
+
+# Archivos generados por el sistema
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
