@@ -2,13 +2,16 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { generateRandomNumber } from '../helpers/numberHelpers';
 
+const INITIAL_LIVES = 5;
+
 const useGame = () => {
     const navigate = useNavigate();
-    const [targetNumber, setTargetNumber] = useState(generateRandomNumber(1, 20)); // Inicializa el número objetivo
-    const [score, setScore] = useState(100); // Inicializa la puntuación
-    const [message, setMessage] = useState('Introduzca un número entre 1 y 20.'); // Mensaje inicial
-    const [isGameOver, setIsGameOver] = useState(false); // Controla si el juego ha terminado
-    const [currentHighScore, setCurrentHighScore] = useState(0); // Guarda la puntuación más alta actual
+    const [targetNumber, setTargetNumber] = useState(generateRandomNumber(1, 20));
+    const [score, setScore] = useState(0);
+    const [message, setMessage] = useState('Introduzca un número entre 1 y 20.');
+    const [isGameOver, setIsGameOver] = useState(false);
+    const [currentHighScore, setCurrentHighScore] = useState(0);
+    const [lives, setLives] = useState(INITIAL_LIVES);
 
     const handleGuess = (guess) => {
         if (isGameOver) return;
@@ -21,32 +24,31 @@ const useGame = () => {
         }
 
         if (numberGuess === targetNumber) {
-            const newScore = score + 100;
+            setLives(INITIAL_LIVES); // Reinicia el número de vidas
+            const newScore = score + 1;
             setScore(newScore);
 
-            if (newScore > currentHighScore) { // Actualiza la puntuación más alta si es necesario
-                setCurrentHighScore(newScore);
-            }
+            const newHighScore = currentHighScore + 1; // Incrementa la puntuación acumulada
+            setCurrentHighScore(newHighScore);
 
             setMessage('¡Encontraste al impostor!');
             setTargetNumber(generateRandomNumber(1, 20)); // Genera un nuevo número objetivo
             return 'correct';
         } else {
-            const newScore = score - 10;
-            if (newScore <= 0) { // Si la puntuación llega a 0 o menos, el juego termina
+            const newLives = lives - 1;
+            if (newLives <= 0) { // Si las vidas llegan a 0, el juego termina
                 setIsGameOver(true);
 
-                if (currentHighScore > 0) { // Guarda la puntuación más alta en el almacenamiento local
-                    const savedScores = JSON.parse(localStorage.getItem('highScores')) || [];
-                    savedScores.push(currentHighScore);
-                    savedScores.sort((a, b) => b - a).slice(0, 10); // Ordena y mantiene las 10 mejores puntuaciones
-                    localStorage.setItem('highScores', JSON.stringify(savedScores));
-                }
+                // Guarda la puntuación acumulada en el almacenamiento local
+                const savedScores = JSON.parse(localStorage.getItem('highScores')) || [];
+                savedScores.push(currentHighScore);
+                const updatedScores = savedScores.sort((a, b) => b - a).slice(0, 10); // Ordena y mantiene las 10 mejores puntuaciones
+                localStorage.setItem('highScores', JSON.stringify(updatedScores));
 
                 navigate('/result', { state: { result: 'lose', score: currentHighScore } }); // Navega a la página de resultados con el estado de pérdida
                 return 'incorrect';
             } else {
-                setScore(newScore); // Actualiza la puntuación
+                setLives(newLives); // Actualiza el número de vidas
                 setMessage(numberGuess > targetNumber ? '¡El impostor está más abajo!' : '¡El impostor está más arriba!'); // Mensaje de pista
                 return 'incorrect';
             }
@@ -55,16 +57,17 @@ const useGame = () => {
 
     const resetGame = () => {
         setTargetNumber(generateRandomNumber(1, 20)); // Reinicia el número objetivo
-        setScore(100); // Reinicia la puntuación
-        setCurrentHighScore(0); // Reinicia la puntuación más alta
+        setScore(0); // Reinicia la puntuación a cero
+        setLives(INITIAL_LIVES);
         setIsGameOver(false); // Reinicia el estado del juego
-        setMessage(''); // Limpia el mensaje
+        setMessage('');
     };
 
     return {
         score,
         message,
         isGameOver,
+        lives,
         handleGuess,
         resetGame,
     };

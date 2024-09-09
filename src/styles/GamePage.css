@@ -27,12 +27,44 @@ p {
     z-index: -1;
 }
 
+.lives-container {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    padding: 25px 25px;
+    z-index: 1;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.life-icon {
+    height: 50px;
+    width: auto;
+    margin-right: 10px;
+}
+
 
 @media (max-width: 1280px) {
     .corner-image {
         font-size: 30px;
         height: auto;
         width: 250px;
+    }
+
+    .lives-container {
+        top: 5px;
+        right: 5px;
+        padding: 25px 25px;
+        font-size: 30px;
+        font-weight: bold; 
+    }
+
+    .life-icon {
+        height: 40px;
+        width: auto;
+        margin-right: 10px;
     }
 }
 
@@ -49,5 +81,19 @@ p {
         font-size: 30px;
         height: auto;
         width: 120px;
+    }
+
+    .lives-container {
+        top: 5px;
+        right: 5px;
+        padding: 10px 10px;
+        font-size: 20px;
+        font-weight: bold; 
+    }
+
+    .life-icon {
+        height: 30px;
+        width: auto;
+        margin-right: 10px;
     }
 }

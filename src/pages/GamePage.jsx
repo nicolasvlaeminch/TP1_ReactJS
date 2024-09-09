@@ -4,9 +4,10 @@ import useGame from '../hooks/useGame';
 import '../styles/GamePage.css';
 import AmongUsDisplay from '../components/AmongUsDisplay';
 import amongUsBg from '../assets/background/among-us-bg.jpg';
+import heartIcon from '../assets/icons/heart.png';
 
 const GamePage = () => {
-    const { score, message, isGameOver, handleGuess, resetGame } = useGame();
+    const { score, message, isGameOver, lives, handleGuess} = useGame();
 
     // Estado inicial para los jugadores
     const [players, setPlayers] = useState(
@@ -47,22 +48,14 @@ const GamePage = () => {
         }
     };
 
-    // Reinicia el juego y el estado de los jugadores
-    const handleReset = () => {
-        resetGame();
-        setPlayers(
-            Array.from({ length: 20 }, (_, index) => ({
-                number: index + 1,
-                isDead: false,
-                isWinner: false,
-            }))
-        );
-    };
-
     return (
         <div className="app">
             <h1>Encuentra al impostor</h1>
-            <p>Tu puntuación actual: {score} puntos.</p>
+            <p>Impostores encontrados: {score}</p>
+            <div className="lives-container">
+                <img src={heartIcon} alt="Vida" className="life-icon" />
+                <span>{lives}</span>
+            </div>
             <AmongUsDisplay players={players} />
             <GuessingForm onGuess={handleGuessAndUpdate} isGameOver={isGameOver} />
             {message && <p>{message}</p>}
