@@ -1,0 +1,39 @@
+/* src/styles/ResultPage.css */
+.result-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #646cff;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+.high-scores-list {
+    list-style: none;
+    padding: 0;
+}
+
+.high-scores-list li {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}

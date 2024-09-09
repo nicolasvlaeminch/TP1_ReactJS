@@ -4,7 +4,7 @@ import useGame from '../hooks/useGame';
 import '../styles/GamePage.css';
 
 const GamePage = () => {
-    const { score, highScore, message, isGameOver, handleGuess, resetGame } = useGame();
+    const { score, message, isGameOver, handleGuess, resetGame } = useGame();
 
     const handleReset = () => {
         resetGame();
@@ -14,7 +14,6 @@ const GamePage = () => {
         <div className="app">
             <h1>Juego de adivinar el numero</h1>
             <p>Score: {score}</p>
-            <p>High Score: {highScore}</p>
             <GuessingForm onGuess={handleGuess} isGameOver={isGameOver} />
             {message && <p>{message}</p>}
             {isGameOver && (
