@@ -26,15 +26,27 @@
     1px -1px 0 black,
     -1px  1px 0 black,
     1px  1px 0 black;
-    transition: transform 0.3s ease;
+    animation: fadeIn 0.8s forwards;
+    transition: background-image 0.5s ease, opacity 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .dead {
     background-image: url('../assets/among-us/dead.png');
+    opacity: 1;
 }
 
 .winner {
     background-image: url('../assets/among-us/win.png');
+    opacity: 1;
 }
 
 @media (max-width: 1280px) {
