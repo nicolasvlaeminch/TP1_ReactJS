@@ -13,7 +13,7 @@ const GamePage = () => {
     return (
         <div className="app">
             <h1>Juego de adivinar el numero</h1>
-            <p>Score: {score}</p>
+            <p>Tu puntuación actual: {score} puntos.</p>
             <GuessingForm onGuess={handleGuess} isGameOver={isGameOver} />
             {message && <p>{message}</p>}
             {isGameOver && (
