@@ -16,5 +16,5 @@ Es un juego inspirado en el popular "Among Us", donde debes encontrar al imposto
 
 3. **Cuidado con Perder**: Si tus vidas llegan a 0, ¡has perdido la partida! Pero no te preocupes, siempre puedes volver a intentarlo y desafiarte nuevamente para superar tu propio récord.
 
-4. **Juega Online**: Puedes jugar de manera online haciendo **[Click Aqui](https://tp1-react-js.vercel.app/)**.
+4. **Juega Online**: Puedes jugar de manera online haciendo **[Click Aqui](https://tp1-reactjs.vercel.app/)**.
 
